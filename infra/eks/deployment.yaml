@@ -10,7 +10,7 @@ spec:
   template:
     metadata:
       labels:
-        app: testing
+        app: video-processor-rest-api
     spec:
       containers:
       - name: testing
