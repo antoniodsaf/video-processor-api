@@ -10,4 +10,4 @@ spec:
   ports:
     - port: 8086
   selector:
-    app: testing
+    app: video-processor-rest-api

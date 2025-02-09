@@ -19,4 +19,4 @@ spec:
         - containerPort: 8086
         envFrom:
         - secretRef:
-            name: video-processor-rest-api-secret
+            name: videoprocessor-secret

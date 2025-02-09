@@ -7,27 +7,27 @@ jwt:
   refresh-token-expiration: 86400000
 
 spring:
+#  datasource:
+#    driverClassName: org.h2.Driver
+#    url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE
+#    username: sa
+#    password: password
+#  jpa:
+#    open-in-view: false
+#    database-platform: org.hibernate.dialect.H2Dialect
   datasource:
-    driverClassName: org.h2.Driver
-    url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE
-    username: sa
-    password: password
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://${DB_HOST:192.168.12.196}:${DB_PORT:5432}/${DB_NAME:test}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:mysecretpassword}
   jpa:
-    open-in-view: false
-    database-platform: org.hibernate.dialect.H2Dialect
-  #  datasource:
-  #    driverClassName: org.postgresql.Driver
-  #    url: jdbc:postgresql://${DB_HOST:192.168.12.196}:${DB_PORT:5432}/${DB_NAME:test}
-  #    username: ${DB_USER:postgres}
-  #    password: ${DB_PASSWORD:mysecretpassword}
-  #  jpa:
-  #    database: POSTGRESQL
-  #    hibernate:
-  #      ddl-auto: update
-  #    show-sql: true
-  #    properties:
-  #      hibernate:
-  #        format_sql: true
+    database: POSTGRESQL
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
 
   sql:
     init:
@@ -37,7 +37,7 @@ spring:
       region: ${AWS_REGION:us-east-1}
       #      endpoint: ${AWS_ENDPOINT_HOST:localhost}
       s3:
-        processing-bucket: ${AWS_S3_BUCKET_NAME:test-processingbucket}
+        processing-bucket: ${AWS_S3_BUCKET_NAME:videoprocessing-fiap}
       sqs:
         processing-queue-name: ${QUEUE_NAME:trigger_processing}
         update-process-status-queue-name: ${SQS_UPDATE_PROCESS_QUEUE_NAME:update_process}

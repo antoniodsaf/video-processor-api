@@ -5,6 +5,10 @@ on:
     branches:
       - master
 
+env:
+  REGION_DEFAULT: "us-east-1"
+  CLUSTER_NAME: "videoprocessor-cluster"
+
 jobs:
   unit-tests:
     runs-on: ubuntu-latest
@@ -103,12 +107,13 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Configure AWS Credentials
+      - name: AWS Configure
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-2
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ID }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: ${{ env.REGION_DEFAULT }}
 
       - name: Update Kube Config
         run: aws eks update-kubeconfig --name ${{ env.CLUSTER_NAME }} --region ${{ env.REGION_DEFAULT }}
