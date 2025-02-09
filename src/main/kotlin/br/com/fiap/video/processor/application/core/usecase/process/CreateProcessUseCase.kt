@@ -81,7 +81,8 @@ class CreateProcessUseCase(
             "video/x-ms-wmv",
             "video/x-flv",
             "video/3gpp",
-            "video/3gpp2"
+            "video/3gpp2",
+            "video/x-matroska"
         )
         return videoMimeTypes.contains(file.contentType)
     }

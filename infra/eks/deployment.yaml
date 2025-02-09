@@ -13,7 +13,7 @@ spec:
         app: video-processor-rest-api
     spec:
       containers:
-      - name: testing
+      - name: video-processor-rest-api
         image: antoniodsaf/video-processor-rest-api:latest
         ports:
         - containerPort: 8086

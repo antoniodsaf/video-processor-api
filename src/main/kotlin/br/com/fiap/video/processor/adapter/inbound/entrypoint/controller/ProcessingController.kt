@@ -1,16 +1,10 @@
 package br.com.fiap.video.processor.adapter.inbound.entrypoint.controller
 
-import br.com.fiap.user.config.UserUtil
 import br.com.fiap.video.processor.adapter.inbound.entrypoint.controller.dto.ProcessDto
-import br.com.fiap.video.processor.adapter.outbound.aws.s3.client.S3FileTransfer
-import br.com.fiap.video.processor.application.core.domain.valueobject.ProcessId
 import br.com.fiap.video.processor.application.port.inbound.process.CreateProcessService
 import br.com.fiap.video.processor.application.port.inbound.process.DownloadFramesZipService
 import br.com.fiap.video.processor.application.port.inbound.process.GetProcessByUserService
 import br.com.fiap.video.processor.application.port.inbound.process.dto.CreateProcessInboundRequest
-import br.com.fiap.video.processor.application.port.outbound.process.FileDownloader
-import br.com.fiap.video.processor.application.port.outbound.process.ProcessRepository
-import br.com.fiap.video.processor.application.port.outbound.process.dto.ProcessOutboundResponse
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.core.io.InputStreamResource
@@ -28,6 +22,9 @@ class ProcessingController(
     private val downloadFramesZipService: DownloadFramesZipService,
     private val getProcessByUserService: GetProcessByUserService,
 ) {
+    companion object {
+        private val logger: Logger = LoggerFactory.getLogger(ProcessingController::class.java)
+    }
 
     @PostMapping
     fun createProcess(@RequestPart(value = "file", required = true) multipartFile: MultipartFile) {
