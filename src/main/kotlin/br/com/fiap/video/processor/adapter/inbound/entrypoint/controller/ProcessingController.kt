@@ -28,7 +28,7 @@ class ProcessingController(
 
     @PostMapping
     fun createProcess(@RequestPart(value = "file", required = true) multipartFile: MultipartFile) {
-        createProcessService.invoke(CreateProcessInboundRequest(multipartFile))
+        createProcessService.invoke(CreateProcessInboundRequest(multipartFile)).getOrThrow()
     }
 
     @GetMapping
