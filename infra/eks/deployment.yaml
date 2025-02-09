@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: video-processor-rest-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: video-processor-rest-api
+  template:
+    metadata:
+      labels:
+        app: testing
+    spec:
+      containers:
+      - name: testing
+        image: antoniodsaf/video-processor-rest-api:latest
+        ports:
+        - containerPort: 8086
+        envFrom:
+        - secretRef:
+            name: video-processor-rest-api-secret
