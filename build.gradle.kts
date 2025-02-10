@@ -113,6 +113,21 @@ tasks.jacocoTestReport {
         html.required = true
         xml.required = true
     }
+
+
+    classDirectories.setFrom(files(classDirectories.files.map {
+        fileTree(it) {
+            exclude(
+                "**/br/com/fiap/video/processor/VideoProcessorRestApiKt*",
+                "**/br/com/fiap/video/processor/VideoProcessorApp*",
+                "**/br/com/fiap/video/processor/AWSConfiguration*",
+                "src/main/kotlin/br/com/fiap/user/**/*",
+                "**/br/com/fiap/user/**",
+                "**/br/com/fiap/video/processor/infrastructure/**",
+                "**/br/com/fiap/video/processor/adapter/inbound/entrypoint/controller/exceptionhandler/**"
+            )
+        }
+    }))
 }
 
 configurations {
@@ -128,9 +143,13 @@ configurations {
 sonar {
 
     val exclusions = listOf(
-        "**/VideoProcessorApp*",
-        "**/AWSConfiguration*",
-        "src/main/kotlin/br/com/fiap/user/**/*"
+        "**/br/com/fiap/video/processor/VideoProcessorRestApiKt*",
+        "**/br/com/fiap/video/processor/VideoProcessorApp*",
+        "**/br/com/fiap/video/processor/AWSConfiguration*",
+        "src/main/kotlin/br/com/fiap/user/**/*",
+        "**/br/com/fiap/user/**",
+        "**/br/com/fiap/video/processor/infrastructure/**",
+        "**/br/com/fiap/video/processor/adapter/inbound/entrypoint/controller/exceptionhandler/**"
     )
 
     properties {

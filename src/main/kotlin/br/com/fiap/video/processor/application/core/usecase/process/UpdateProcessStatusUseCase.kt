@@ -3,7 +3,9 @@ package br.com.fiap.video.processor.application.core.usecase.process
 import br.com.fiap.video.processor.application.core.domain.Process
 import br.com.fiap.video.processor.application.core.domain.valueobject.ProcessId
 import br.com.fiap.video.processor.application.core.domain.valueobject.ProcessStatus
+import br.com.fiap.video.processor.application.core.usecase.exception.NotFoundException
 import br.com.fiap.video.processor.application.core.usecase.process.exception.InvalidProcessStateException
+import br.com.fiap.video.processor.application.core.usecase.process.exception.ProcessNotFoundException
 import br.com.fiap.video.processor.application.mapper.process.ProcessMapper
 import br.com.fiap.video.processor.application.port.inbound.process.UpdateProcessStatusService
 import br.com.fiap.video.processor.application.port.inbound.process.dto.UpdateProcessStatusInboundRequest
@@ -27,16 +29,21 @@ class UpdateProcessStatusUseCase(
         logger.info("Updating process status of ${updateProcessStatusInboundRequest.id}")
         ProcessId.new(updateProcessStatusInboundRequest.id).getOrThrow().let { processId ->
             val processOutboundResponse = this.processRepository.findById(processId)
-            when (updateProcessStatusInboundRequest.status) {
+                ?: throw ProcessNotFoundException("process not found.")
+            when (ProcessStatus.findByValue(updateProcessStatusInboundRequest.status)
+                .getOrThrow()) {
                 ProcessStatus.IN_PROGRESS -> {
                     processOutboundResponse.toInProgressProcess().save()
                 }
+
                 ProcessStatus.DONE -> {
                     processOutboundResponse.toDoneProcess().save()
                 }
+
                 ProcessStatus.ERROR -> {
                     processOutboundResponse.toErrorProcess().save()
                 }
+
                 else -> {
                     throw InvalidProcessStateException("process status is invalid.")
                 }

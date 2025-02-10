@@ -22,7 +22,7 @@ class ProcessUpdateStatusSQSListener(
         updateProcessStatusService.invoke(
             UpdateProcessStatusInboundRequest(
                 processMessage.id,
-                processMessage.status
+                processMessage.status.value
             )
         )
     }
