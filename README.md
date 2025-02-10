@@ -17,7 +17,7 @@ Abaixo uma imagem representativa:
 
 ## 👷🏃 Como construir e executar local?
 
-O desenvolvimento deste foi feito em cima da plataforma de desenvolvimento java (com springboot) e banco de dados postgresql para a persistência dos dados, portanto é recomendado as seguintes versões para a execução local:
+O desenvolvimento deste foi feito em cima da plataforma de desenvolvimento kotlin/jvm (com springboot) e banco de dados postgresql para a persistência dos dados, portanto é recomendado as seguintes versões para a execução local:
 ```
 jvm: 21
 postgresql: 16
